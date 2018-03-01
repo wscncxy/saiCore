@@ -7,13 +7,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -251,20 +248,4 @@ public class Excel {
         System.out.print(list);
     }
 
-    public static void setFileDownloadHeader(HttpServletRequest request,
-                                             HttpServletResponse response, java.lang.String fileName) {
-        java.lang.String userAgent = request.getHeader("USER-AGENT").toLowerCase();
-        java.lang.String finalFileName = fileName;
-        try {
-            if (StringUtil.contains(userAgent, "firefox")) {// 火狐浏览器
-                finalFileName = new java.lang.String(fileName.getBytes(), "ISO8859-1");
-            } else {
-                finalFileName = URLEncoder.encode(fileName, "UTF8");// 其他浏览器
-            }
-            response.setHeader("Content-Disposition", "attachment; filename=\""
-                    + finalFileName + "\"");// 这里设置一下让浏览器弹出下载提示框，而不是直接在浏览器中打开
-        } catch (Exception e) {
-            logger.error("setFileDownloadHeader error", e);
-        }
-    }
 }
