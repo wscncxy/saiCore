@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sai.core.mapper.UserroleinfoMapper">
+  <resultMap id="BaseResultMap" type="com.sai.core.domain.Userroleinfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="roleid" jdbcType="BIGINT" property="roleid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="createUser" jdbcType="BIGINT" property="createuser" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userId, roleid, createTime, createUser
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userRoleInfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from userRoleInfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sai.core.domain.Userroleinfo">
+    insert into userRoleInfo (id, userId, roleid)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{roleid,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sai.core.domain.Userroleinfo">
+    update userRoleInfo
+    set userId = #{userid,jdbcType=BIGINT},
+      roleid = #{roleid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectRolesByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from userRoleInfo
+    where userId = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByUserId"  parameterType="java.lang.Long">
+    DELETE FROM userRoleInfo WHERE userId = #{userId,jdbcType=BIGINT}
+  </delete>
+</mapper>

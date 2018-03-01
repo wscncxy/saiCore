@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sai.core.mapper.MenuinfoMapper">
+    <resultMap id="BaseResultMap" type="com.sai.core.domain.Menuinfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="menuName" jdbcType="VARCHAR" property="menuname"/>
+        <result column="menuUrl" jdbcType="VARCHAR" property="menuurl"/>
+        <result column="menuType" jdbcType="CHAR" property="menutype"/>
+        <result column="program" jdbcType="CHAR" property="program"/>
+        <result column="preMenuId" jdbcType="BIGINT" property="premenuid"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="createUser" jdbcType="BIGINT" property="createuser"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="updateUser" jdbcType="BIGINT" property="updateuser"/>
+        <result column="router" jdbcType="VARCHAR" property="router"/>
+        <result column="sortIndex" jdbcType="INTEGER" property="sortIndex"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, menuName, menuUrl, router, menuType, program, preMenuId, status, createTime, createUser,
+    updateTime, updateUser,sortIndex
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menuInfo
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from menuInfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sai.core.domain.Menuinfo">
+    insert into menuInfo (id, menuName, menuUrl, 
+      menuType, program, preMenuId,
+      status,router,sortIndex)
+    values (#{id,jdbcType=BIGINT}, #{menuname,jdbcType=VARCHAR}, #{menuurl,jdbcType=VARCHAR}, 
+      #{menutype,jdbcType=CHAR}, #{program,jdbcType=CHAR}, #{premenuid,jdbcType=BIGINT}, 
+      #{status,jdbcType=CHAR}, #{router,jdbcType=VARCHAR},#{sortIndex,jdbcType=INTEGER})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.sai.core.domain.Menuinfo">
+    update menuInfo
+    set menuName = #{menuname,jdbcType=VARCHAR},
+      menuUrl = #{menuurl,jdbcType=VARCHAR},
+      menuType = #{menutype,jdbcType=CHAR},
+      program = #{program,jdbcType=CHAR},
+      preMenuId = #{premenuid,jdbcType=BIGINT},
+      status = #{status,jdbcType=CHAR},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      updateUser = #{updateuser,jdbcType=BIGINT},
+      router = #{router,jdbcType=VARCHAR},
+      sortIndex = #{sortIndex,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectMenusByRoleIds" parameterType="java.util.List" resultMap="BaseResultMap">
+        select
+        mi.id,
+        mi.menuname,
+        mi.menuUrl,
+        mi.menuType,
+        mi.program,
+        mi.preMenuId,
+        mi.status,
+        mi.router,
+        mi.sortIndex
+        from menuInfo mi
+        left join roleMenuInfo rmi ON rmi.menuid = mi.id
+        where rmi.roleid in
+        <foreach collection="roleIdList" item="roleId" index="index"
+                 open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+        and mi.status='SUC'
+        ORDER BY mi.sortIndex,mi.id
+    </select>
+    <sql id="selectMenuWhere">
+        from menuInfo
+        <where>
+            <if test="status != null and status!=''">
+                status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="menuname != null and menuname != ''">
+                and menuname like CONCAT('%',#{menuname},'%')
+            </if>
+        </where>
+
+    </sql>
+    <select id="selectAllList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        <include refid="selectMenuWhere"/>
+        ORDER BY sortIndex,id
+    </select>
+
+    <select id="selectSubMenuList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menuInfo
+        where preMenuId = #{preMenuId,jdbcType=BIGINT}
+        ORDER BY sortIndex,id
+    </select>
+
+    <select id="selectForOption" parameterType="com.sai.core.domain.Menuinfo" resultMap="BaseResultMap" >
+    select
+    id,menuname,preMenuId
+        <include refid="selectMenuWhere"/>
+        ORDER BY sortIndex,id
+  </select>
+</mapper>

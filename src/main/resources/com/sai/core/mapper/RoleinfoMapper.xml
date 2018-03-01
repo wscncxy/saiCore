@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sai.core.mapper.RoleinfoMapper">
+    <resultMap id="BaseResultMap" type="com.sai.core.domain.Roleinfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="roleName" jdbcType="VARCHAR" property="rolename"/>
+        <result column="roleDesc" jdbcType="VARCHAR" property="roledesc"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="createUser" jdbcType="BIGINT" property="createuser"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime"/>
+        <result column="updateUser" jdbcType="BIGINT" property="updateuser"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="roleSign" jdbcType="VARCHAR" property="roleSign"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, roleName, roleDesc, createTime, createUser, updateTime, updateUser, status,roleSign
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from roleinfo
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from roleinfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sai.core.domain.Roleinfo">
+    insert into roleinfo (id, roleName, roleDesc,
+       status,roleSign)
+    values (#{id,jdbcType=BIGINT}, #{rolename,jdbcType=VARCHAR}, #{roledesc,jdbcType=VARCHAR}, 
+       #{status,jdbcType=CHAR}, #{roleSign,jdbcType=VARCHAR})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.sai.core.domain.Roleinfo">
+    update roleinfo
+    set roleName = #{rolename,jdbcType=VARCHAR},
+      roleDesc = #{roledesc,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      updateUser = #{updateuser,jdbcType=BIGINT},
+      status = #{status,jdbcType=CHAR},
+      roleSign = #{roleSign,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="selectByUserid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT     ri.id, ri.roleName, ri.roleDesc, ri.status
+    FROM roleinfo ri
+    LEFT JOIN userRoleInfo uri ON uri.roleid = ri.id
+    WHERE uri.userid = #{userId,jdbcType=BIGINT}
+  </select>
+
+    <sql id="selectRoleInfo">
+        FROM roleinfo
+        <where>
+            <if test="status != null and status !=''">
+                status = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="rolename != null and rolename != ''">
+                and rolename like CONCAT('%',#{rolename},'%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectForOption" parameterType="com.sai.core.domain.Roleinfo" resultMap="BaseResultMap">
+        SELECT id, roleName
+        <include refid="selectRoleInfo"/>
+    </select>
+
+
+    <select id="selectPage" parameterType="HashMap" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        <include refid="selectRoleInfo"/>
+        order by id desc
+        limit #{start}, #{pageSize}
+    </select>
+
+    <select id="selectCount" parameterType="HashMap" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        <include refid="selectRoleInfo"/>
+    </select>
+</mapper>

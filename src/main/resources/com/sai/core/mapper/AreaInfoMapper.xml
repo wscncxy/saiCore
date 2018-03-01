@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sai.core.mapper.AreaInfoMapper">
+    <resultMap id="BaseResultMap" type="com.sai.core.domain.AreaInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="areaname" jdbcType="VARCHAR" property="areaName"/>
+        <result column="areatype" jdbcType="VARCHAR" property="areaType"/>
+        <result column="precode" jdbcType="BIGINT" property="preCode"/>
+        <result column="areacode" jdbcType="BIGINT" property="areaCode"/>
+        <result column="areaindex" jdbcType="INTEGER" property="areaIndex"/>
+        <result column="englishname" jdbcType="VARCHAR" property="englishName"/>
+        <result column="areastatus" jdbcType="CHAR" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, areaname,areatype,precode,areacode,areaindex,areastatus,englishname
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from areainfo
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="delete" parameterType="java.lang.Long">
+    delete from areainfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sai.core.domain.AreaInfo">
+    insert into areainfo (areaname,areatype,precode,areacode,areaindex,englishname,areastatus)
+    values ( #{areaName,jdbcType=VARCHAR},
+    #{areaType,jdbcType=VARCHAR},
+    #{preCode,jdbcType=BIGINT},
+    #{areaCode,jdbcType=BIGINT},
+    #{areaIndex,jdbcType=INTEGER},
+    #{englishName,jdbcType=VARCHAR},
+    #{status,jdbcType=CHAR})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.sai.core.domain.AreaInfo">
+    update areainfo
+    set areaname = #{areaName,jdbcType=VARCHAR},
+      areatype = #{areaType,jdbcType=VARCHAR},
+      precode = #{preCode,jdbcType=BIGINT},
+      areacode = #{areaCode,jdbcType=BIGINT},
+      areaindex = #{areaIndex,jdbcType=INTEGER},
+      englishname = #{englishName,jdbcType=VARCHAR},
+      areastatus = #{status,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+    <sql id="selectMenuWhere">
+        from areainfo
+        <where>
+            <if test="status != null and status!=''">
+                areastatus = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="areaName != null and areaName != ''">
+                and areaname like CONCAT('%',#{areaName})
+            </if>
+            <if test="areaType != null and areaType != ''">
+                and areatype = #{areaType,jdbcType=VARCHAR}
+            </if>
+            <if test="englishName != null and englishName != ''">
+                and englishname like CONCAT('%',#{englishName})
+            </if>
+            <if test="preCode != null">
+                and precode = #{preCode,jdbcType=BIGINT}
+            </if>
+            <if test="areaCode != null">
+                and areacode = #{areaCode,jdbcType=BIGINT}
+            </if>
+        </where>
+    </sql>
+    <select id="selectList" resultMap="BaseResultMap" parameterType="com.sai.core.domain.AreaInfo">
+        select
+        <include refid="Base_Column_List"/>
+        <include refid="selectMenuWhere"/>
+        ORDER BY areaindex,id
+    </select>
+
+    <select id="selectForOption" parameterType="com.sai.core.domain.AreaInfo" resultMap="BaseResultMap">
+        select
+        id,areaname,areacode
+        <include refid="selectMenuWhere"/>
+        ORDER BY areaindex,id
+    </select>
+    <select id="selectSubMaxAreaCode" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select
+            max(precode)
+        from
+          areainfo
+        where
+          precode = #{preCode,jdbcType=BIGINT}
+    </select>
+</mapper>

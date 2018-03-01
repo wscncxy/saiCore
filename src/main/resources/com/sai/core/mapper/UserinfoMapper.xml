@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sai.core.mapper.UserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.sai.core.domain.Userinfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="userLoginName" jdbcType="VARCHAR" property="userloginname" />
+    <result column="userPWD" jdbcType="VARCHAR" property="userpwd" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="createUser" jdbcType="BIGINT" property="createuser" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="updateUser" jdbcType="BIGINT" property="updateuser" />
+    <result column="descript" jdbcType="VARCHAR" property="descript" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="userAttr" jdbcType="VARCHAR" property="userAttr" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="products" jdbcType="VARCHAR" property="products" />
+    <result column="merchants" jdbcType="VARCHAR" property="merchants" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userName, userLoginName, userPWD, status, createTime, createUser, updateTime, 
+    updateUser, descript, lastLoginTime,userAttr,mobile,products,merchants
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userInfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from userInfo
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sai.core.domain.Userinfo">
+    insert into userInfo (id, userName, userLoginName, 
+      userPWD, status,
+      descript, lastLoginTime,userAttr,mobile,products,merchants)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{userloginname,jdbcType=VARCHAR}, 
+      #{userpwd,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+      #{descript,jdbcType=VARCHAR}, #{lastlogintime,jdbcType=TIMESTAMP}, #{userAttr,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{products,jdbcType=VARCHAR}, #{merchants,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.sai.core.domain.Userinfo">
+    update userInfo
+    set userName = #{username,jdbcType=VARCHAR},
+      userLoginName = #{userloginname,jdbcType=VARCHAR},
+      userPWD = #{userpwd,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      updateUser = #{updateuser,jdbcType=BIGINT},
+      descript = #{descript,jdbcType=VARCHAR},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      userAttr = #{userAttr,jdbcType=VARCHAR},
+      products = #{products,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      merchants = #{merchants,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <sql id="selectUserInfo">
+    from userInfo
+    <where>
+      <if test="status != null and status != ''">
+        status = #{status,jdbcType=VARCHAR}
+      </if>
+      <if test="username != null and username != ''">
+        and username like CONCAT(#{username},'%')
+      </if>
+      <if test="mobile != null and mobile != ''">
+        and mobile like CONCAT(#{mobile},'%')
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectPage" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    <include refid="selectUserInfo"/>
+    order by id desc
+    limit #{start}, #{pageSize}
+  </select>
+
+  <select id="selectCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    SELECT
+    count(*)
+    <include refid="selectUserInfo"/>
+  </select>
+
+  <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from userInfo
+    where userLoginName = #{loginName,jdbcType=VARCHAR}
+  </select>
+</mapper>
