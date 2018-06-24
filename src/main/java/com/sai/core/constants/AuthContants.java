@@ -1,4 +1,4 @@
-package com.sai.core.constents;
+package com.sai.core.constants;
 
 /**
  * Created by ZhouXiang on 2017/11/3 0003 14:16.

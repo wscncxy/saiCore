@@ -1,12 +1,12 @@
 package com.sai.core.dto;
 
+import com.sai.core.constants.StatusConstant;
 
-import com.sai.core.constents.StatusContent;
-
-/**
- * Created by ZhouXiang on 2017/8/15 0015 13:38.
- */
 public class ResultCode<T> {
+
+    /**
+     * Created by ZhouXiang on 2017/8/15 0015 13:38.
+     */
 
     private String code;
     private String msg;
@@ -46,27 +46,27 @@ public class ResultCode<T> {
     }
 
     public boolean isSuccess() {
-        return org.apache.commons.lang3.StringUtils.equals(StatusContent.RESULT_SUCCESS_CODE, code);
+        return org.apache.commons.lang3.StringUtils.equals(StatusConstant.RESULT_SUCCESS_CODE, code);
     }
 
     public final static <T> ResultCode<T> fail(String msg) {
-        return new ResultCode<T>(StatusContent.RESULT_FAIL_CODE, msg, null);
+        return new ResultCode<T>(StatusConstant.RESULT_FAIL_CODE, msg, null);
     }
 
-    public final static <T> ResultCode<T> fail() {
-        return new ResultCode<T>(StatusContent.RESULT_FAIL_CODE, StatusContent.RESULT_FAIL_MSG, null);
+    public final static <T> ResultCode<T> fail(String code, String msg) {
+        return new ResultCode<T>(code, msg, null);
     }
 
     public final static <T> ResultCode<T> success(String msg, T data) {
-        return new ResultCode<T>(StatusContent.RESULT_SUCCESS_CODE, msg, data);
-    }
-
-    public final static <T> ResultCode<T> success(T data) {
-        return new ResultCode<T>(StatusContent.RESULT_SUCCESS_CODE, StatusContent.RESULT_SUCCESS_MSG, data);
+        return new ResultCode<T>(StatusConstant.RESULT_SUCCESS_CODE, msg, data);
     }
 
     public final static <T> ResultCode<T> success() {
-        return new ResultCode<T>(StatusContent.RESULT_SUCCESS_CODE, StatusContent.RESULT_SUCCESS_MSG, null);
+        return new ResultCode<T>(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, null);
+    }
+
+    public final static <T> ResultCode<T> success(T data) {
+        return new ResultCode<T>(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, data);
     }
 
     public final static <T> ResultCode<T> result(String code, String msg) {
@@ -76,4 +76,5 @@ public class ResultCode<T> {
     public final static <T> ResultCode<T> result(String code, String msg, T data) {
         return new ResultCode<T>(code, msg, data);
     }
+
 }

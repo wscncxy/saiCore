@@ -1,6 +1,6 @@
 package com.sai.core.utils;
 
-import com.sai.core.constents.StatusContent;
+import com.sai.core.constants.StatusConstant;
 import com.sai.core.dto.ResultCode;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.http.NameValuePair;
@@ -116,7 +116,7 @@ public class HttpClient {
 			response = httpClient.execute(post);
 			StatusLine statusline = response.getStatusLine();
 			if (statusline.getStatusCode() == 200) {
-				resultCode = StatusContent.RESULT_SUCCESS_CODE;
+				resultCode = StatusConstant.RESULT_SUCCESS_CODE;
 			} else {
 				resultCode = statusline.getStatusCode() + "";
 			}
@@ -146,7 +146,7 @@ public class HttpClient {
 			response = httpClient.execute(get);
 			StatusLine statusline = response.getStatusLine();
 			if (statusline.getStatusCode() == 200) {
-				resultCode = StatusContent.RESULT_SUCCESS_CODE;
+				resultCode = StatusConstant.RESULT_SUCCESS_CODE;
 			} else {
 				resultCode = statusline.getStatusCode() + "";
 			}
