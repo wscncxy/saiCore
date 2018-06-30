@@ -3,7 +3,7 @@ package com.sai.core.constants;
 /**
  * Created by ZhouXiang on 2017/11/15 0015 15:47.
  */
-public class RouterContants {
+public class RouterConstants {
     public static final String ROUTER_URL_ROOT = "/router";
     public static final String ROUTER_TYPE_HTTP = "http";
     public static final String ROUTER_TYPE_EUREKA = "eureka";

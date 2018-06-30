@@ -69,6 +69,10 @@ public class ResultCode<T> {
         return new ResultCode<T>(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, data);
     }
 
+    public final static <T> ResultCode<T> fail() {
+        return new ResultCode<T>(StatusConstant.RESULT_FAIL_CODE, StatusConstant.RESULT_FAIL_MSG, null);
+    }
+
     public final static <T> ResultCode<T> result(String code, String msg) {
         return new ResultCode<T>(code, msg, null);
     }
