@@ -36,9 +36,18 @@ public class Constants {
     public static final String SAI_MENU_TYPE_NAME_BUTTONMENU = "按钮菜单"; //按钮菜单
     public static final String SAI_MENU_TYPE_NAME_HIDEMENU = "隐藏菜单"; //隐藏菜单，ex: ajax请求
 
+
+    public static final Byte SAI_CONFIG_TYPE_PROGRAM = 0; //项目环境配置
+    public static final Byte SAI_CONFIG_TYPE_OPERATE = 1; //项目业务属性配置
+
+    public static final Byte SAI_ENV_TYPE_PRODECT = 0; //生产环境
+    public static final Byte SAI_ENV_TYPE_DEV = 1; //开发环境
+
     public static Map<Byte, String> SAI_PROGRAM_INDEX_MAP = new HashMap<>();
     public static Map<String, Byte> SAI_PROGRAM_MAP = new HashMap<>();
     public static Map<Integer, String> SAI_MENU_TYPE_MAP = new HashMap<>();
+    public static Map<Byte, String> SAI_CONFIG_TYPE_MAP = new HashMap<>();
+    public static Map<Byte, String> SAI_ENV_TYPE_MAP = new HashMap<>();
 
     static {
         SAI_PROGRAM_INDEX_MAP.put(SAI_PROGRAM_INDEX_OPENAPI, SAI_PROGRAM_OPENAPI);
@@ -57,5 +66,12 @@ public class Constants {
         SAI_MENU_TYPE_MAP.put(SAI_MENU_TYPE_PAGEMENU, SAI_MENU_TYPE_NAME_PAGEMENU);
         SAI_MENU_TYPE_MAP.put(SAI_MENU_TYPE_BUTTONMENU, SAI_MENU_TYPE_NAME_BUTTONMENU);
         SAI_MENU_TYPE_MAP.put(SAI_MENU_TYPE_HIDEMENU, SAI_MENU_TYPE_NAME_HIDEMENU);
+
+        SAI_CONFIG_TYPE_MAP.put(SAI_CONFIG_TYPE_PROGRAM, "项目环境配置");
+        SAI_CONFIG_TYPE_MAP.put(SAI_CONFIG_TYPE_OPERATE, "项目业务属性配置");
+
+        SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_PRODECT, "正式环境");
+        SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_DEV, "开发环境");
+
     }
 }
