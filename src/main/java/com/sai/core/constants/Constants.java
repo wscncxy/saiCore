@@ -1,10 +1,16 @@
 package com.sai.core.constants;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class Constants {
+
+    public static final String DEFAULT_CHARSET_NAME = "UTF-8";
+    public static final Charset DEFAULT_CHARSET = Charset.forName(DEFAULT_CHARSET_NAME);
+
+
     public static final String SYMBOL_POINT = ".";
     public static final String SYMBOL_LEFT_SLASH = "/";
     public static final String SYMBOL_RIGHT_SLASH = "\\";
@@ -13,11 +19,13 @@ public class Constants {
 
     public static final Long TIME_ONE_DAY_SECOND = 60 * 60 * 24L;
 
+    public static final String SAI_PROGRAM_ALL = "all";
     public static final String SAI_PROGRAM_OPENAPI = "openApi";
     public static final String SAI_PROGRAM_SHOPPING = "shoping";
     public static final String SAI_PROGRAM_AREA = "area";
     public static final String SAI_PROGRAM_MANAGE = "management";
 
+    public static final Byte SAI_PROGRAM_INDEX_ALL = 0;
     public static final Byte SAI_PROGRAM_INDEX_AREA = 1;
     public static final Byte SAI_PROGRAM_INDEX_OPENAPI = 2;
     public static final Byte SAI_PROGRAM_INDEX_MANAGE = 3;
@@ -40,8 +48,9 @@ public class Constants {
     public static final Byte SAI_CONFIG_TYPE_PROGRAM = 0; //项目环境配置
     public static final Byte SAI_CONFIG_TYPE_OPERATE = 1; //项目业务属性配置
 
-    public static final Byte SAI_ENV_TYPE_PRODECT = 0; //生产环境
-    public static final Byte SAI_ENV_TYPE_DEV = 1; //开发环境
+    public static final Byte SAI_ENV_TYPE_ALL = 0; //所有环境
+    public static final Byte SAI_ENV_TYPE_PRODUCTION = 1; //生产环境
+    public static final Byte SAI_ENV_TYPE_DEVELOPMENT = 2; //开发环境
 
     public static Map<Byte, String> SAI_PROGRAM_INDEX_MAP = new HashMap<>();
     public static Map<String, Byte> SAI_PROGRAM_MAP = new HashMap<>();
@@ -50,6 +59,7 @@ public class Constants {
     public static Map<Byte, String> SAI_ENV_TYPE_MAP = new HashMap<>();
 
     static {
+        SAI_PROGRAM_INDEX_MAP.put(SAI_PROGRAM_INDEX_ALL, SAI_PROGRAM_ALL);
         SAI_PROGRAM_INDEX_MAP.put(SAI_PROGRAM_INDEX_OPENAPI, SAI_PROGRAM_OPENAPI);
         SAI_PROGRAM_INDEX_MAP.put(SAI_PROGRAM_INDEX_SHOPPING, SAI_PROGRAM_SHOPPING);
         SAI_PROGRAM_INDEX_MAP.put(SAI_PROGRAM_INDEX_AREA, SAI_PROGRAM_AREA);
@@ -70,8 +80,9 @@ public class Constants {
         SAI_CONFIG_TYPE_MAP.put(SAI_CONFIG_TYPE_PROGRAM, "项目环境配置");
         SAI_CONFIG_TYPE_MAP.put(SAI_CONFIG_TYPE_OPERATE, "项目业务属性配置");
 
-        SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_PRODECT, "正式环境");
-        SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_DEV, "开发环境");
+        SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_ALL, "allEnvironment");
+        SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_PRODUCTION, "production");
+        SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_DEVELOPMENT, "development");
 
     }
 }
