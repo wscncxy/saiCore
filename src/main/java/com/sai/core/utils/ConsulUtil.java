@@ -75,7 +75,12 @@ public class ConsulUtil {
     }
 
     public List<String> getSubKeys(String key) {
+        try{
         return keyValueClient.getKeys(key);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean setValue(String key) {
