@@ -1,8 +1,6 @@
 package com.sai.core.utils;
 
-/**
- * Created by ZhouXiang on 2017/8/10 0010 14:43.
- */
+
 public class RedisKey {
     private static final String SPLIT_STR = ":";
     private String progam;
