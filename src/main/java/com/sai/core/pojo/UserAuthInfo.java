@@ -1,18 +1,28 @@
 package com.sai.core.pojo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class UserAuthInfo {
-    private Long userId;
+    private BigDecimal userId;
     private String userName;
     private List<String> rolesList;
     private String authToken;
+    private String roleName;
 
-    public Long getUserId() {
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public BigDecimal getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(BigDecimal userId) {
         this.userId = userId;
     }
 

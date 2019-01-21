@@ -2,6 +2,8 @@ package com.sai.core.dto;
 
 import com.sai.core.constants.StatusConstant;
 
+import java.beans.Transient;
+
 public class ResultCode<T> {
 
     /**
@@ -45,6 +47,7 @@ public class ResultCode<T> {
         this.data = data;
     }
 
+    @Transient
     public boolean isSuccess() {
         return org.apache.commons.lang3.StringUtils.equals(StatusConstant.RESULT_SUCCESS_CODE, code);
     }

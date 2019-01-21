@@ -85,4 +85,6 @@ public class Constants {
         SAI_ENV_TYPE_MAP.put(SAI_ENV_TYPE_DEVELOPMENT, "development");
 
     }
+
+    public static final Long TIME_DAY_SECONDS = 24*60*60L;
 }
