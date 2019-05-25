@@ -27,9 +27,9 @@ public class Constants {
 
     public static final Byte SAI_PROGRAM_INDEX_ALL = 0;
     public static final Byte SAI_PROGRAM_INDEX_AREA = 1;
-    public static final Byte SAI_PROGRAM_INDEX_OPENAPI = 2;
-    public static final Byte SAI_PROGRAM_INDEX_MANAGE = 3;
-    public static final Byte SAI_PROGRAM_INDEX_SHOPPING = 4;
+    public static final Byte SAI_PROGRAM_INDEX_SHOPPING = 2;
+    public static final Byte SAI_PROGRAM_INDEX_OPENAPI = 3;
+    public static final Byte SAI_PROGRAM_INDEX_MANAGE = 4;
 
 
     public static final Integer SAI_MENU_TYPE_TOPMENU = 0;  //顶部菜单

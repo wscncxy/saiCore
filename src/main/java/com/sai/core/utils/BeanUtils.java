@@ -33,4 +33,17 @@ public class BeanUtils extends org.apache.commons.beanutils.BeanUtils {
 
         return map;
     }
+
+    public static <T> T toBean(Map<String, Object> dataMap, Class<T> cla) {
+        if (dataMap != null) {
+            try {
+                T t = cla.newInstance();
+                populate(t, dataMap);
+                return t;
+            } catch (Exception e) {
+
+            }
+        }
+        return null;
+    }
 }

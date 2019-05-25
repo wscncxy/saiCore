@@ -1,4 +1,5 @@
-package com.xianjinxia.cms.tools.utils;
+package com.sai.core.utils;
+
 
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.executor.Executor;
