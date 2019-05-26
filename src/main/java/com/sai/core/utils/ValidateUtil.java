@@ -1,5 +1,6 @@
 package com.sai.core.utils;
 
+import com.sai.core.Annotation.DataValid;
 import com.sai.core.dto.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,21 +13,21 @@ import java.util.Set;
 @Slf4j
 public class ValidateUtil {
 
-    public static <T> ResultCode<String> validBeforeAdd(T addInfo) {
-        if (addInfo == null) {
+    public static <T> ResultCode<String> valid(T data) {
+        if (data == null) {
             return ResultCode.fail("内容为空");
         }
 
-        Field[] allField = addInfo.getClass().getFields();
+        Field[] allField = data.getClass().getDeclaredFields();
         for (Field field : allField) {
             DataValid dataValid = field.getAnnotation(DataValid.class);
             if (dataValid == null) {
                 continue;
             }
-
+            field.setAccessible(true);
             try {
-                Object fieldVal = field.get(addInfo);
-                String fieldName = dataValid.name() == null ? field.getName() : dataValid.name();
+                Object fieldVal = field.get(data);
+                String fieldName = StringUtil.isEmpty(dataValid.name()) ? field.getName() : dataValid.name();
                 if (dataValid.noNull() && fieldVal == null) {
                     return ResultCode.fail(fieldName + "内容不能为空");
                 }
@@ -75,7 +76,7 @@ public class ValidateUtil {
                     return resultCode;
                 }
             } catch (Exception e) {
-                log.error(e.getMessage(),e);
+                log.error(e.getMessage(), e);
             }
         }
 

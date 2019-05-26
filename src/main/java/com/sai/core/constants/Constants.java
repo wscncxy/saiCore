@@ -1,5 +1,6 @@
 package com.sai.core.constants;
 
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -87,4 +88,7 @@ public class Constants {
     }
 
     public static final Long TIME_DAY_SECONDS = 24*60*60L;
+
+
+    public static Map<String, Method> ASSEMBLED_DATA_METHOD_MAP = new HashMap<>();
 }

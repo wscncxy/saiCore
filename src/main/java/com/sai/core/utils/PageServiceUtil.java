@@ -2,20 +2,21 @@ package com.sai.core.utils;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sai.core.constants.Constants;
 import com.sai.core.dto.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
 public class PageServiceUtil {
-    public static Map<String, Method> assembledMethodMap = new HashMap<>();
 
     public static <T> ResultCode add(T data, PageMapper pageMapper) {
-        ResultCode validResult = ValidateUtil.validBeforeAdd(data);
+        ResultCode validResult = ValidateUtil.valid(data);
         if (!validResult.isSuccess()) {
             return validResult;
         }
@@ -27,7 +28,7 @@ public class PageServiceUtil {
     }
 
     public static <T> ResultCode update(T data, PageMapper pageMapper) {
-        ResultCode validResult = ValidateUtil.validBeforeAdd(data);
+        ResultCode validResult = ValidateUtil.valid(data);
         if (!validResult.isSuccess()) {
             return validResult;
         }
@@ -38,7 +39,7 @@ public class PageServiceUtil {
         return ResultCode.success();
     }
 
-    public static <T> ResultCode getById(Long id, PageMapper<T> pageMapper) {
+    public static <T> ResultCode getById(BigDecimal id, PageMapper<T> pageMapper) {
         if (id == null) {
             return ResultCode.fail("id不能为空");
         }
@@ -52,7 +53,7 @@ public class PageServiceUtil {
     public static List select4Page(Map<String, Object> param, PageMapper pageMapper, String assembledMethodName) {
         List selectResultList = pageMapper.select4Page(param);
         if (StringUtil.isEmpty(assembledMethodName)) {
-            Method assembledMethod = assembledMethodMap.get(assembledMethodName);
+            Method assembledMethod = Constants.ASSEMBLED_DATA_METHOD_MAP.get(assembledMethodName);
             if (assembledMethod != null) {
                 Object cla = ClassScanUtil.getClassInstance(assembledMethod.getDeclaringClass());
                 try {

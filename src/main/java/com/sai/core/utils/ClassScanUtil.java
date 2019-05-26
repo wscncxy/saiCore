@@ -32,7 +32,7 @@ public class ClassScanUtil {
                         ScannerSourceInfo scannerSourceInfo = new ScannerSourceInfo();
                         Class cla = Class.forName(className);
                         scannerSourceInfo.setCla(cla);
-                        scannerSourceInfo.setMethod(cla.getDeclaredMethods());
+                        scannerSourceInfo.setMethods(cla.getDeclaredMethods());
                         allClassList.add(scannerSourceInfo);
                     } catch (Exception e) {
                         e.printStackTrace();

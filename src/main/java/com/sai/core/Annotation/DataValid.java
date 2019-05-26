@@ -1,8 +1,11 @@
-package com.sai.core.utils;
+package com.sai.core.Annotation;
+
+import com.sai.core.utils.ValidEnum;
+import com.sai.core.utils.Validate;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.ANNOTATION_TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DataValid {
     String name() default "";
