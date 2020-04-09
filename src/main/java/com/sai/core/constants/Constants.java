@@ -37,7 +37,7 @@ public class Constants {
     public static final Integer SAI_MENU_TYPE_SUBMENU = 1;  //子菜单
     public static final Integer SAI_MENU_TYPE_PAGEMENU = 2;  //页面菜单
     public static final Integer SAI_MENU_TYPE_BUTTONMENU = 3; //按钮菜单
-    public static final Integer SAI_MENU_TYPE_HIDEMENU = 4; //隐藏菜单，ex: ajax请求
+    public static final Integer SAI_MENU_TYPE_HIDEMENU = 4; //隐藏菜单，ex:
 
     public static final String SAI_MENU_TYPE_NAME_TOPMENU = "顶部菜单";  //顶部菜单
     public static final String SAI_MENU_TYPE_NAME_SUBMENU = "子菜单";  //子菜单

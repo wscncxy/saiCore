@@ -1,6 +1,6 @@
 package com.sai.core;
 
-import com.sai.core.Annotation.AssembledDataMethod;
+import com.sai.core.annotation.AssembledDataMethod;
 import com.sai.core.constants.Constants;
 import com.sai.core.pojo.ScannerSourceInfo;
 import com.sai.core.utils.ClassScanUtil;
@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.sai.core.Annotation;
+package com.sai.core.annotation;
 
 
 import java.lang.annotation.ElementType;

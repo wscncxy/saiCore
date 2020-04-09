@@ -1,6 +1,6 @@
 package com.saiarea;
 
-import com.sai.core.Annotation.DataValid;
+import com.sai.core.annotation.DataValid;
 import lombok.Data;
 
 import java.math.BigDecimal;
