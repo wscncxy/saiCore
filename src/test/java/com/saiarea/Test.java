@@ -1,21 +1,23 @@
 package com.saiarea;
 
-import com.alibaba.fastjson.JSONObject;
-import com.sai.core.utils.ValidateUtil;
+public final class Test {
+    public int v1=1;
+    private long v2=2L;
+    private static final String v3="v3";
+    private final float v4=4f;
+    private static double v5=5d;
+    private boolean v6=true;
+    private byte v7 = 7;
 
-import java.math.BigDecimal;
+    private void test1(String param){
 
-/**
- * Created by ZhouXiang on 2018/3/1 0001 11:32.
- */
-public class Test {
+    }
+
+    public String test2(String param){
+        return "test2";
+    }
+
     public static void main(String[] arg){
-        TestData testData= new TestData();
-        testData.setId(new BigDecimal(1));
-        testData.setName("1234567800");
-        testData.setDesc("233");
-        testData.setAge(9);
-        testData.setAccountCount(10);
-        System.out.println(JSONObject.toJSONString(ValidateUtil.valid(testData)));
+
     }
 }

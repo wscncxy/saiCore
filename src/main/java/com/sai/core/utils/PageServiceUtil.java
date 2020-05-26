@@ -16,10 +16,8 @@ import java.util.Map;
 public class PageServiceUtil {
 
     public static <T> ResultCode add(T data, PageMapper pageMapper) {
-        ResultCode validResult = ValidateUtil.valid(data);
-        if (!validResult.isSuccess()) {
-            return validResult;
-        }
+        ValidateUtil.valid(data);
+
         int row = pageMapper.insert(data);
         if (row == 0) {
             return ResultCode.fail("没有添加数据");
@@ -28,10 +26,8 @@ public class PageServiceUtil {
     }
 
     public static <T> ResultCode update(T data, PageMapper pageMapper) {
-        ResultCode validResult = ValidateUtil.valid(data);
-        if (!validResult.isSuccess()) {
-            return validResult;
-        }
+        ValidateUtil.valid(data);
+
         int row = pageMapper.update(data);
         if (row == 0) {
             return ResultCode.fail("没有更新数据");

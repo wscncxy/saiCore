@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 public class TestData {
-    @DataValid(noNull = true)
+    @DataValid(notBlank = true)
     private BigDecimal id;
     @DataValid(maxLen = 10)
     private String name;
