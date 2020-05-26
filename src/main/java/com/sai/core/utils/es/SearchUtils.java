@@ -1,8 +1,8 @@
 package com.sai.core.utils.es;
 
+import com.sai.core.utils.JSONUtil;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,6 +45,7 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
         } catch (Exception e) {
             log.error("", e);
         }
+        return null;
     }
 
     /**
@@ -115,11 +116,11 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
      */
     public SearchResultDocument insert(ElasticsearchTypeBaseEnum elasticsearchTypeEnum,
                                        ElasticsearchDocument dataInfo) {
-        ElasticsearchDocument xsearchDocument = new ElasticsearchDocument();
-        xsearchDocument.setElasticsearchTypeEnum(elasticsearchTypeEnum);
-        xsearchDocument.addData(dataInfo);
-        SearchResultDocument searchResultDocument = doSearch(xsearchDocument, ElasticsearchOperationTypeEnum.INSERT);
-        log.info("二向箔插入返回结果:{}", JSONObject.toJSONString(searchResultDocument));
+        ElasticsearchDocument document = new ElasticsearchDocument();
+        document.setElasticsearchTypeEnum(elasticsearchTypeEnum);
+        document.addDocument(dataInfo);
+        SearchResultDocument searchResultDocument = doSearch(document, ElasticsearchOperationTypeEnum.INSERT);
+        log.info("二向箔插入返回结果:{}", JSONUtil.toJSONString(searchResultDocument));
         return searchResultDocument;
     }
 
@@ -130,11 +131,11 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
      */
     public SearchResultDocument update(ElasticsearchTypeBaseEnum elasticsearchTypeEnum,
                                        ElasticsearchDocument dataInfo) {
-        XSearchDocument xsearchDocument = new XSearchDocument();
-        xsearchDocument.setElasticsearchTypeEnum(elasticsearchTypeEnum);
-        xsearchDocument.addData(dataInfo);
-        SearchResultDocument searchResultDocument = doSearch(xsearchDocument, ElasticsearchOperationTypeEnum.UPDATE);
-        log.info("二向箔更新返回结果:{}", JSONObject.toJSONString(searchResultDocument));
+        ElasticsearchDocument document = new ElasticsearchDocument();
+        document.setElasticsearchTypeEnum(elasticsearchTypeEnum);
+        document.addDocument(dataInfo);
+        SearchResultDocument searchResultDocument = doSearch(document, ElasticsearchOperationTypeEnum.UPDATE);
+        log.info("二向箔更新返回结果:{}", JSONUtil.toJSONString(searchResultDocument));
         return searchResultDocument;
     }
 
@@ -145,11 +146,11 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
      */
     public <T extends ElasticsearchDocument> SearchResultDocument batchInsert(ElasticsearchTypeBaseEnum elasticsearchTypeEnum,
                                                                               Collection<T> dataList) {
-        XSearchDocument xsearchDocument = new XSearchDocument();
-        xsearchDocument.setElasticsearchTypeEnum(elasticsearchTypeEnum);
-        xsearchDocument.addData(dataList);
-        SearchResultDocument searchResultDocument = doSearch(xsearchDocument, ElasticsearchOperationTypeEnum.BULK_INSERT);
-        log.info("二向箔批量插入返回结果:{}", JSONObject.toJSONString(searchResultDocument));
+        ElasticsearchDocument document = new ElasticsearchDocument();
+        document.setElasticsearchTypeEnum(elasticsearchTypeEnum);
+        document.addDocument(dataList);
+        SearchResultDocument searchResultDocument = doSearch(document, ElasticsearchOperationTypeEnum.BULK_INSERT);
+        log.info("二向箔批量插入返回结果:{}", JSONUtil.toJSONString(searchResultDocument));
         return searchResultDocument;
     }
 
@@ -160,11 +161,11 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
      */
     public <T extends ElasticsearchDocument> SearchResultDocument batchUpdate(ElasticsearchTypeBaseEnum elasticsearchTypeEnum,
                                                                               Collection<T> dataList) {
-        XSearchDocument xsearchDocument = new XSearchDocument();
-        xsearchDocument.setElasticsearchTypeEnum(elasticsearchTypeEnum);
-        xsearchDocument.addData(dataList);
-        SearchResultDocument searchResultDocument = doSearch(xsearchDocument, ElasticsearchOperationTypeEnum.BULK_UPDATE);
-        log.info("二向箔批量更新返回结果:{}", JSONObject.toJSONString(searchResultDocument));
+        ElasticsearchDocument document = new ElasticsearchDocument();
+        document.setElasticsearchTypeEnum(elasticsearchTypeEnum);
+        document.addDocument(dataList);
+        SearchResultDocument searchResultDocument = doSearch(document, ElasticsearchOperationTypeEnum.BULK_UPDATE);
+        log.info("二向箔批量更新返回结果:{}", JSONUtil.toJSONString(searchResultDocument));
         return searchResultDocument;
     }
 
@@ -178,11 +179,11 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
         }
         List<String> idList = new ArrayList<>();
         idList.add(id);
-        C elasticsearchQueryBase = createC();
-        elasticsearchQueryBase.setIdList(idList);
-        elasticsearchQueryBase.setElasticsearchTypeEnum(elasticsearchTypeEnum);
-        SearchResultDocument searchResultDocument = doSearch(xsearchQueryCondition, ElasticsearchOperationTypeEnum.DELETE);
-        log.info("单删除结果：{}", JSONObject.toJSONString(searchResultDocument));
+        C elasticsearchQueryCondition = createC();
+        elasticsearchQueryCondition.setIdList(idList);
+        elasticsearchQueryCondition.setElasticsearchTypeEnum(elasticsearchTypeEnum);
+        SearchResultDocument searchResultDocument = doSearch(elasticsearchQueryCondition, ElasticsearchOperationTypeEnum.DELETE);
+        log.info("单删除结果：{}", JSONUtil.toJSONString(searchResultDocument));
     }
 
     /**
@@ -194,12 +195,12 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
             return 0;
         }
         log.info("XSearchUtils deleteByIDList 当前删除总数{}", idList.size());
-        XSearchQueryCondition xsearchQueryCondition = new XSearchQueryCondition();
+        C xsearchQueryCondition = createC();
         xsearchQueryCondition.setIdList(idList);
         xsearchQueryCondition.setElasticsearchTypeEnum(elasticsearchTypeEnum);
         SearchResultDocument searchResultDocument = doSearch(xsearchQueryCondition,
                 ElasticsearchOperationTypeEnum.BULK_DELETE);
-        log.info("XSearchUtils deleteByIDList 单删除结果：{}", JSONObject.toJSONString(searchResultDocument));
+        log.info("XSearchUtils deleteByIDList 单删除结果：{}", JSONUtil.toJSONString(searchResultDocument));
         return idList.size();
     }
 
@@ -225,7 +226,7 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
                 ids.add(elasticsearchDocument.getId());
             }
             delete(elasticsearchTypeEnum, ids);
-            scrollPage = scrollPage.next();
+            scrollPage = scrollNext(scrollPage);
         }
         log.info("XSearchUtils delete 此次批量删除总数：{}，删除请求报文：{}", delCount, deleteQueryCondition.build());
     }
@@ -238,54 +239,17 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
         if (elasticsearchTypeEnum == null) {
             return;
         }
-        XSearchQueryCondition xsearchQueryCondition = new XSearchQueryCondition();
+        C xsearchQueryCondition = createC();
         xsearchQueryCondition.setElasticsearchTypeEnum(elasticsearchTypeEnum);
         delete(xsearchQueryCondition);
     }
 
     /**
-     * @param xsearchDocument
+     * @param ElasticsearchDocument
      * @param xsearchOperationTypeEnum
      * @return
      */
-    public SearchResultDocument doSearch(ElasticsearchDocument xsearchDocument,
-                                          ElasticsearchOperationTypeEnum xsearchOperationTypeEnum) {
-        if (xsearchDocument == null) {
-            return null;
-        }
-        JSONObject content = (JSONObject) xsearchDocument.build();
-        String url = xsearchURL + xsearchOperationTypeEnum.getUri()
-                + xsearchDocument.getElasticsearchTypeEnum().getType();
-        log.info("操作二向箔{}，url：{},内容：{}", xsearchOperationTypeEnum.getCode(), url, content.toJSONString());
-        HttpHeaders headers = new HttpHeaders();
-        MediaType type = MediaType.parseMediaType("application/json; charset=utf-8");
-        headers.setContentType(type);
-        HttpEntity<JSONObject> formEntity = new HttpEntity<>(content, headers);
+    public abstract SearchResultDocument doSearch(ElasticsearchDocument ElasticsearchDocument,
+                                          ElasticsearchOperationTypeEnum xsearchOperationTypeEnum);
 
-        String result = getRestTemplate().postForObject(url, formEntity, String.class);
-        SearchResultDocument xsearchResultDocument = JSONObject.toJavaObject(JSONObject.parseObject(result),
-                SearchResultDocument.class);
-        if (xsearchResultDocument != null && xsearchDocument.getCla() != null) {
-            List hitsData = xsearchResultDocument.getHitsData();
-            if (hitsData != null && hitsData.size() > 0) {
-                List newHitsData = new ArrayList();
-                Class cla = xsearchDocument.getCla();
-                try {
-                    for (Object obj : hitsData) {
-                        Object newObj = cla.getConstructor().newInstance();
-                        BeanUtils.copyProperties(newObj, obj);
-                        newHitsData.add(newObj);
-                    }
-                    xsearchResultDocument.setHitsData(newHitsData);
-                } catch (Exception e) {
-                    log.error(e.getMessage(), e);
-                }
-            }
-        }
-        return xsearchResultDocument;
-    }
-
-    private RestTemplate getRestTemplate() {
-        return SpringBeansUtil.getBean(RestTemplate.class);
-    }
 }

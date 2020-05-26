@@ -18,9 +18,7 @@ import java.util.*;
  * @date 2019/07/05
  */
 public class ElasticsearchQueryBase extends ElasticsearchDocument {
-    /**
-     * pageNum
-     */
+
     @Setter
     @Getter
     protected transient int pageNum = -1;
@@ -95,9 +93,7 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
     @Setter
     @Getter
     protected transient Integer aggrSize = 1000;
-    /**
-     * fields
-     */
+
     @Getter
     protected transient List<String> fields = new ArrayList<>();
 
@@ -283,6 +279,7 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
         return this;
     }
 
+    @Setter
     private List<String> idList = new ArrayList<>();
 
     public void addId(String id) {
