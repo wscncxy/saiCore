@@ -1,15 +1,16 @@
 package com.sai.core.utils;
 
 import com.sai.core.pojo.ScannerSourceInfo;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 public class ClassScanUtil {
+    private static final Logger log = LoggerFactory.getLogger(ClassScanUtil.class);
     private static ClassLoader defaultClassLoader = Thread.currentThread().getContextClassLoader();
 
     public static List<ScannerSourceInfo> scanner(String packageName, boolean needScanSub) {

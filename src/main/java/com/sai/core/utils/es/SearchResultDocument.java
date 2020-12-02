@@ -1,6 +1,5 @@
 package com.sai.core.utils.es;
 
-import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import java.util.Map;
  * @author zhouxiang001
  * @date 2019/07/05
  */
-@Data
 public class SearchResultDocument<T> {
     /**
      * a
@@ -40,5 +38,57 @@ public class SearchResultDocument<T> {
 
     public Integer getSize() {
         return hitsData == null ? 0 : hitsData.size();
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public Long getTotalHits() {
+        return totalHits;
+    }
+
+    public void setTotalHits(Long totalHits) {
+        this.totalHits = totalHits;
+    }
+
+    public String getScrollId() {
+        return scrollId;
+    }
+
+    public void setScrollId(String scrollId) {
+        this.scrollId = scrollId;
+    }
+
+    public List<T> getHitsData() {
+        return hitsData;
+    }
+
+    public void setHitsData(List<T> hitsData) {
+        this.hitsData = hitsData;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public Map<String, ElasticsearchAggregations> getAggregations() {
+        return aggregations;
+    }
+
+    public void setAggregations(Map<String, ElasticsearchAggregations> aggregations) {
+        this.aggregations = aggregations;
     }
 }

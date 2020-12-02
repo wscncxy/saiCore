@@ -1,7 +1,5 @@
 package com.sai.core.utils.es;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -9,8 +7,6 @@ import org.apache.commons.lang3.StringUtils;
  * 
  * @author sai
  */
-@Getter
-@AllArgsConstructor
 public enum ElasticsearchOperationTypeEnum {
     SEARCH("search", "/search/", ""), GET("personalCollectionSucNofaceRecognitionSuc", "/get/", ""),
     SCROLL("scroll", "/scroll/", "滚动查询"), INSERT("INSERT", "/insert/", "不存在则插入"),
@@ -46,4 +42,21 @@ public enum ElasticsearchOperationTypeEnum {
         return null;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    ElasticsearchOperationTypeEnum(String code, String uri, String message) {
+        this.code = code;
+        this.uri = uri;
+        this.message = message;
+    }
 }

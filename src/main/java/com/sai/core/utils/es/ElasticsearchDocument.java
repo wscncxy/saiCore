@@ -1,8 +1,6 @@
 package com.sai.core.utils.es;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.List;
  * @author sai
  * @date 2019/07/05
  */
-@Data
 public class ElasticsearchDocument {
     /**
      * id
@@ -29,7 +26,6 @@ public class ElasticsearchDocument {
      */
     protected Class cla;
 
-    @Getter
     private List documents;
 
 
@@ -51,5 +47,37 @@ public class ElasticsearchDocument {
      */
     public Object build(){
         return null;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ElasticsearchTypeBaseEnum getElasticsearchTypeEnum() {
+        return elasticsearchTypeEnum;
+    }
+
+    public void setElasticsearchTypeEnum(ElasticsearchTypeBaseEnum elasticsearchTypeEnum) {
+        this.elasticsearchTypeEnum = elasticsearchTypeEnum;
+    }
+
+    public Class getCla() {
+        return cla;
+    }
+
+    public void setCla(Class cla) {
+        this.cla = cla;
+    }
+
+    public List getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List documents) {
+        this.documents = documents;
     }
 }

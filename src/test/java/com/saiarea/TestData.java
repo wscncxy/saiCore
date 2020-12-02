@@ -1,11 +1,9 @@
 package com.saiarea;
 
 import com.sai.core.annotation.DataValid;
-import lombok.Data;
 
 import java.math.BigDecimal;
 
-@Data
 public class TestData {
     @DataValid(notBlank = true)
     private BigDecimal id;

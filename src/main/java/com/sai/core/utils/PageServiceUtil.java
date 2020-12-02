@@ -4,7 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sai.core.constants.Constants;
 import com.sai.core.dto.ResultCode;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -12,9 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 public class PageServiceUtil {
 
+    private static final Logger log = LoggerFactory.getLogger(PageServiceUtil.class);
     public static <T> ResultCode add(T data, PageMapper pageMapper) {
         ValidateUtil.valid(data);
 

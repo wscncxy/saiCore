@@ -3,13 +3,14 @@ package com.sai.core.utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
+import com.sai.core.utils.es.SearchUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-@Slf4j
 public class JSONUtil {
-
+    private static final Logger log = LoggerFactory.getLogger(SearchUtils.class);
     private static ObjectMapper objectMapper = new ObjectMapper();
     static {
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);

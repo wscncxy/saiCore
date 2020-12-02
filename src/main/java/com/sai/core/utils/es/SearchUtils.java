@@ -1,10 +1,10 @@
 package com.sai.core.utils.es;
 
 import com.sai.core.utils.JSONUtil;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -14,13 +14,12 @@ import java.util.List;
 /**
  * SearchUtils
  */
-@Slf4j
 public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
 
+    private static final Logger log = LoggerFactory.getLogger(JSONUtil.class);
     /**
      * xsearchURL
      */
-    @Setter
     private String xsearchURL;
 
     private Class<C> condition;
@@ -252,4 +251,11 @@ public abstract class SearchUtils<C extends ElasticsearchQueryBase> {
     public abstract SearchResultDocument doSearch(ElasticsearchDocument ElasticsearchDocument,
                                           ElasticsearchOperationTypeEnum xsearchOperationTypeEnum);
 
+    public void setXsearchURL(String xsearchURL) {
+        this.xsearchURL = xsearchURL;
+    }
+
+    public void setCondition(Class<C> condition) {
+        this.condition = condition;
+    }
 }

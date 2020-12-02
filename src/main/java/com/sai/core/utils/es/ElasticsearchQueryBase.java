@@ -1,8 +1,5 @@
 package com.sai.core.utils.es;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.elasticsearch.script.Script;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.ScriptSortBuilder;
@@ -19,82 +16,62 @@ import java.util.*;
  */
 public class ElasticsearchQueryBase extends ElasticsearchDocument {
 
-    @Setter
-    @Getter
     protected transient int pageNum = -1;
     /**
      * pageSize
      */
-    @Setter
-    @Getter
     protected transient int pageSize = 10;
     /**
      * notIn
      */
-    @Getter
     protected transient Map<String, Collection> notIn = new HashMap<>();
     /**
      * in
      */
-    @Getter
     protected transient Map<String, Collection> in = new HashMap<>();
     /**
      * term
      */
-    @Getter
     protected transient Map<String, Object> term = new HashMap<>();
     /**
      * term
      */
-    @Getter
     protected transient Map<String, Object> notTerm = new HashMap<>();
     /**
      * rang
      */
-    @Getter
-    protected transient Map<String, QueryRang> rang = new HashMap<>();
+    protected transient Map<String, ElasticsearchQueryRang> rang = new HashMap<>();
     /**
      * fieldSort
      */
-    @Getter
     protected transient List<FieldSortBuilder> fieldSort = new ArrayList<>();
     /**
      * fieldSortMap
      */
-    @Getter
     protected transient Map<String, Object> fieldSortMap = new HashMap<>();
     /**
      * scriptSort
      */
-    @Getter
     protected transient List<ScriptSortBuilder> scriptSort = new ArrayList<>();
     /**
      * 聚合取Count
      */
-    @Getter
     protected transient List<String> countFieldList = new ArrayList<>();
 
     /**
      * scrollTimeInMillis
      */
-    @Setter
-    @Getter
     protected transient Long scrollTimeInMillis;
     /**
      * scrollId
      */
-    @Setter
-    @Getter
     protected transient String scrollId;
 
     /**
      * aggregations size
      */
-    @Setter
-    @Getter
     protected transient Integer aggrSize = 1000;
 
-    @Getter
     protected transient List<String> fields = new ArrayList<>();
 
     /**
@@ -153,9 +130,9 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
      * @return
      */
     public ElasticsearchQueryBase lt(String k, Number values) {
-        QueryRang queryRang = rang.get(k);
+        ElasticsearchQueryRang queryRang = rang.get(k);
         if (queryRang == null) {
-            queryRang = new QueryRang();
+            queryRang = new ElasticsearchQueryRang();
         }
         queryRang.setLt(values);
         rang.put(k, queryRang);
@@ -170,9 +147,9 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
      * @return
      */
     public ElasticsearchQueryBase lte(String k, Number values) {
-        QueryRang queryRang = rang.get(k);
+        ElasticsearchQueryRang queryRang = rang.get(k);
         if (queryRang == null) {
-            queryRang = new QueryRang();
+            queryRang = new ElasticsearchQueryRang();
         }
         queryRang.setLte(values);
         rang.put(k, queryRang);
@@ -187,9 +164,9 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
      * @return
      */
     public ElasticsearchQueryBase gt(String k, Object values) {
-        QueryRang queryRang = rang.get(k);
+        ElasticsearchQueryRang queryRang = rang.get(k);
         if (queryRang == null) {
-            queryRang = new QueryRang();
+            queryRang = new ElasticsearchQueryRang();
         }
         queryRang.setGt(values);
         rang.put(k, queryRang);
@@ -204,9 +181,9 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
      * @return
      */
     public ElasticsearchQueryBase gte(String k, Number values) {
-        QueryRang queryRang = rang.get(k);
+        ElasticsearchQueryRang queryRang = rang.get(k);
         if (queryRang == null) {
-            queryRang = new QueryRang();
+            queryRang = new ElasticsearchQueryRang();
         }
         queryRang.setGte(values);
         rang.put(k, queryRang);
@@ -279,7 +256,6 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
         return this;
     }
 
-    @Setter
     private List<String> idList = new ArrayList<>();
 
     public void addId(String id) {
@@ -311,15 +287,127 @@ public class ElasticsearchQueryBase extends ElasticsearchDocument {
         this.countFieldList.addAll(Arrays.asList(fields));
     }
 
-    /**
-     * QueryRang
-     */
-    @Data
-    public class QueryRang {
-        private Object lt;
-        private Object gt;
-        private Object lte;
-        private Object gte;
+    public int getPageNum() {
+        return pageNum;
     }
 
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Map<String, Collection> getNotIn() {
+        return notIn;
+    }
+
+    public void setNotIn(Map<String, Collection> notIn) {
+        this.notIn = notIn;
+    }
+
+    public Map<String, Collection> getIn() {
+        return in;
+    }
+
+    public void setIn(Map<String, Collection> in) {
+        this.in = in;
+    }
+
+    public Map<String, Object> getTerm() {
+        return term;
+    }
+
+    public void setTerm(Map<String, Object> term) {
+        this.term = term;
+    }
+
+    public Map<String, Object> getNotTerm() {
+        return notTerm;
+    }
+
+    public void setNotTerm(Map<String, Object> notTerm) {
+        this.notTerm = notTerm;
+    }
+
+    public Map<String, ElasticsearchQueryRang> getRang() {
+        return rang;
+    }
+
+    public void setRang(Map<String, ElasticsearchQueryRang> rang) {
+        this.rang = rang;
+    }
+
+    public List<FieldSortBuilder> getFieldSort() {
+        return fieldSort;
+    }
+
+    public void setFieldSort(List<FieldSortBuilder> fieldSort) {
+        this.fieldSort = fieldSort;
+    }
+
+    public Map<String, Object> getFieldSortMap() {
+        return fieldSortMap;
+    }
+
+    public void setFieldSortMap(Map<String, Object> fieldSortMap) {
+        this.fieldSortMap = fieldSortMap;
+    }
+
+    public List<ScriptSortBuilder> getScriptSort() {
+        return scriptSort;
+    }
+
+    public void setScriptSort(List<ScriptSortBuilder> scriptSort) {
+        this.scriptSort = scriptSort;
+    }
+
+    public List<String> getCountFieldList() {
+        return countFieldList;
+    }
+
+    public void setCountFieldList(List<String> countFieldList) {
+        this.countFieldList = countFieldList;
+    }
+
+    public Long getScrollTimeInMillis() {
+        return scrollTimeInMillis;
+    }
+
+    public void setScrollTimeInMillis(Long scrollTimeInMillis) {
+        this.scrollTimeInMillis = scrollTimeInMillis;
+    }
+
+    public String getScrollId() {
+        return scrollId;
+    }
+
+    public void setScrollId(String scrollId) {
+        this.scrollId = scrollId;
+    }
+
+    public Integer getAggrSize() {
+        return aggrSize;
+    }
+
+    public void setAggrSize(Integer aggrSize) {
+        this.aggrSize = aggrSize;
+    }
+
+    public List<String> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<String> fields) {
+        this.fields = fields;
+    }
+
+    public void setIdList(List<String> idList) {
+        this.idList = idList;
+    }
 }

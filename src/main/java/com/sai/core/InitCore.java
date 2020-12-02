@@ -5,17 +5,22 @@ import com.sai.core.constants.Constants;
 import com.sai.core.pojo.ScannerSourceInfo;
 import com.sai.core.utils.ClassScanUtil;
 import com.sai.core.utils.StringUtil;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
-@Slf4j
 public class InitCore {
-    @Getter
+
+    private static final Logger log = LoggerFactory.getLogger(InitCore.class);
     private static volatile boolean initOk = false;
+
+
+    public static boolean isInitOk() {
+        return initOk;
+    }
 
     public static void init(String rootPackageName) {
         if (StringUtil.isEmpty(rootPackageName)) {
@@ -49,4 +54,5 @@ public class InitCore {
             }
         }
     }
+
 }

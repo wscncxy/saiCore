@@ -1,11 +1,5 @@
 package com.sai.core.constants.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@AllArgsConstructor
 public enum ResultCodeEnum {
 
 
@@ -22,4 +16,17 @@ public enum ResultCodeEnum {
     ;
     private String code;
     private String msg;
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    ResultCodeEnum(String code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 }

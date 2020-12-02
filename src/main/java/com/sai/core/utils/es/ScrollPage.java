@@ -1,9 +1,5 @@
 package com.sai.core.utils.es;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 
 /**
@@ -30,47 +26,95 @@ public class ScrollPage<T> {
     /**
      * elasticsearchType
      */
-    @Getter
     protected transient ElasticsearchTypeBaseEnum elasticsearchTypeEnum;
     /**
      * scrollId
      */
-    @Getter
     private String scrollId;
     /**
      * scrollTimeInMillis
      */
-    @Getter
     private Long scrollTimeInMillis;
     /**
      * cla
      */
-    @Getter
     private Class cla;
     /**
      * dataList
      */
-    @Getter
-    @Setter
     private List<T> dataList;
 
-    @Setter
     private Integer size;
     /**
      * totalCount
      */
-    @Getter
-    @Setter
     private long                                  totalCount;
     /**
      * readCount
      */
-    @Getter
-    @Setter
     private long                                  readCount;
 
     public Integer getSize() {
         return dataList == null ? 0 : dataList.size();
+    }
 
+    public ElasticsearchTypeBaseEnum getElasticsearchTypeEnum() {
+        return elasticsearchTypeEnum;
+    }
+
+    public void setElasticsearchTypeEnum(ElasticsearchTypeBaseEnum elasticsearchTypeEnum) {
+        this.elasticsearchTypeEnum = elasticsearchTypeEnum;
+    }
+
+    public String getScrollId() {
+        return scrollId;
+    }
+
+    public void setScrollId(String scrollId) {
+        this.scrollId = scrollId;
+    }
+
+    public Long getScrollTimeInMillis() {
+        return scrollTimeInMillis;
+    }
+
+    public void setScrollTimeInMillis(Long scrollTimeInMillis) {
+        this.scrollTimeInMillis = scrollTimeInMillis;
+    }
+
+    public Class getCla() {
+        return cla;
+    }
+
+    public void setCla(Class cla) {
+        this.cla = cla;
+    }
+
+    public List<T> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<T> dataList) {
+        this.dataList = dataList;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public long getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(long totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public long getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(long readCount) {
+        this.readCount = readCount;
     }
 }
