@@ -18,7 +18,7 @@
         <spring.version>5.3.19</spring.version>
         <druid.version>1.1.12</druid.version>
         <httpclient.version>4.5.4</httpclient.version>
-        <poi.version>3.17</poi.version>
+        <poi.version>4.1.1</poi.version>
         <junit.version>4.12</junit.version>
         <logback.version>1.2.3</logback.version>
         <netty.version>4.1.77.Final</netty.version>
