@@ -40,7 +40,7 @@ public class JSONUtil {
         return null;
     }
 
-    public static <T> List<T> parseArray(String jsonStr) {
+    public static <T> List<T> parseArray(String jsonStr, Class<T> cla) {
         try {
             TypeReference<List<T>> typeReference = new TypeReference<>() {
             };
