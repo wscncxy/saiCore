@@ -13,16 +13,16 @@ public class IpUtil {
 
 	public static String getServerType() {
 		String ip = getServerIp();
-		if (StringUtil.startsWith(ip, "192.168.3")) {
+		if (SaiStringUtils.startsWith(ip, "192.168.3")) {
 			return SERVER_TEST;
-		} else if (StringUtil.startsWith(ip, "192.168.10")) {
+		} else if (SaiStringUtils.startsWith(ip, "192.168.10")) {
 			return SERVER_REMOTE;
 		}
 		return SERVER_LOCAL;
 	}
 
 	public static String getServerIp() {
-		if (StringUtil.isBlank(localip)) {
+		if (SaiStringUtils.isBlank(localip)) {
 			try {
 				String os = System.getProperty("os.name");
 				if (os.toLowerCase().startsWith("win")) {

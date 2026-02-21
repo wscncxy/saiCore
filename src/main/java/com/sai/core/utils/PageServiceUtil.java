@@ -1,46 +1,43 @@
 package com.sai.core.utils;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.sai.core.constants.Constants;
-import com.sai.core.dto.ResultCode;
+import com.sai.core.dto.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PageServiceUtil {
 
     private static final Logger log = LoggerFactory.getLogger(PageServiceUtil.class);
-    public static <T> ResultCode add(T data, PageMapper pageMapper) {
+    public static <T> ResultData add(T data, PageMapper pageMapper) {
         ValidateUtil.valid(data);
 
         int row = pageMapper.insert(data);
         if (row == 0) {
-            return ResultCode.fail("没有添加数据");
+            return ResultData.fail("没有添加数据");
         }
-        return ResultCode.success();
+        return ResultData.success();
     }
 
-    public static <T> ResultCode update(T data, PageMapper pageMapper) {
+    public static <T> ResultData update(T data, PageMapper pageMapper) {
         ValidateUtil.valid(data);
 
         int row = pageMapper.update(data);
         if (row == 0) {
-            return ResultCode.fail("没有更新数据");
+            return ResultData.fail("没有更新数据");
         }
-        return ResultCode.success();
+        return ResultData.success();
     }
 
-    public static <T> ResultCode getById(BigDecimal id, PageMapper<T> pageMapper) {
+    public static <T> ResultData getById(BigDecimal id, PageMapper<T> pageMapper) {
         if (id == null) {
-            return ResultCode.fail("id不能为空");
+            return ResultData.fail("id不能为空");
         }
-        return ResultCode.success(pageMapper.getById(id));
+        return ResultData.success(pageMapper.getById(id));
     }
 
     public static List select4Page(Map<String, Object> param, PageMapper pageMapper) {
@@ -49,7 +46,7 @@ public class PageServiceUtil {
 
     public static List select4Page(Map<String, Object> param, PageMapper pageMapper, String assembledMethodName) {
         List selectResultList = pageMapper.select4Page(param);
-        if (StringUtil.isEmpty(assembledMethodName)) {
+        if (SaiStringUtils.isEmpty(assembledMethodName)) {
             Method assembledMethod = Constants.ASSEMBLED_DATA_METHOD_MAP.get(assembledMethodName);
             if (assembledMethod != null) {
                 Object cla = ClassScanUtil.getClassInstance(assembledMethod.getDeclaringClass());
@@ -61,12 +58,7 @@ public class PageServiceUtil {
                 }
             }
         }
-        Page page = PageHelper.getLocalPage();
-        if (page != null) {
-            page.clear();
-            page.addAll(selectResultList);
-            return page;
-        }
+
         return selectResultList;
     }
 }

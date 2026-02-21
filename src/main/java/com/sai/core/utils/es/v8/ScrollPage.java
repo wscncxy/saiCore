@@ -1,4 +1,6 @@
-package com.sai.core.utils.es;
+package com.sai.core.utils.es.v8;
+
+import com.sai.core.utils.es.ElasticsearchTypeBaseEnum;
 
 import java.util.List;
 

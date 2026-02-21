@@ -15,7 +15,7 @@ public class ClassScanUtil {
 
     public static List<ScannerSourceInfo> scanner(String packageName, boolean needScanSub) {
         List<ScannerSourceInfo> allClassList = new ArrayList<>();
-        if (StringUtil.isEmpty(packageName)) {
+        if (SaiStringUtils.isEmpty(packageName)) {
             return allClassList;
         }
         URL packageURL = defaultClassLoader.getResource("" + packageName.replaceAll("\\.", "/"));

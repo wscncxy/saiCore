@@ -52,35 +52,35 @@ public class ResultData<T> {
         return org.apache.commons.lang3.StringUtils.equals(StatusConstant.RESULT_SUCCESS_CODE, code);
     }
 
-    public final static <T> ResultData<T> fail(String msg) {
+    public static <T> ResultData<T> fail(String msg) {
         return new ResultData<T>(StatusConstant.RESULT_FAIL_CODE, msg, null);
     }
 
-    public final static <T> ResultData<T> fail(String code, String msg) {
+    public static <T> ResultData<T> fail(String code, String msg) {
         return new ResultData<T>(code, msg, null);
     }
 
-    public final static <T> ResultData<T> success(String msg, T data) {
+    public static <T> ResultData<T> success(String msg, T data) {
         return new ResultData<T>(StatusConstant.RESULT_SUCCESS_CODE, msg, data);
     }
 
-    public final static <T> ResultData<T> success() {
+    public static <T> ResultData<T> success() {
         return new ResultData<T>(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, null);
     }
 
-    public final static <T> ResultData<T> success(T data) {
+    public static <T> ResultData<T> success(T data) {
         return new ResultData<T>(StatusConstant.RESULT_SUCCESS_CODE, StatusConstant.RESULT_SUCCESS_MSG, data);
     }
 
-    public final static <T> ResultData<T> fail() {
+    public static <T> ResultData<T> fail() {
         return new ResultData<T>(StatusConstant.RESULT_FAIL_CODE, StatusConstant.RESULT_FAIL_MSG, null);
     }
 
-    public final static <T> ResultData<T> result(String code, String msg) {
+    public static <T> ResultData<T> result(String code, String msg) {
         return new ResultData<T>(code, msg, null);
     }
 
-    public final static <T> ResultData<T> result(String code, String msg, T data) {
+    public static <T> ResultData<T> result(String code, String msg, T data) {
         return new ResultData<T>(code, msg, data);
     }
 

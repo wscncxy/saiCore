@@ -4,7 +4,7 @@ import com.sai.core.annotation.AssembledDataMethod;
 import com.sai.core.constants.Constants;
 import com.sai.core.pojo.ScannerSourceInfo;
 import com.sai.core.utils.ClassScanUtil;
-import com.sai.core.utils.StringUtil;
+import com.sai.core.utils.SaiStringUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class InitCore {
     }
 
     public static void init(String rootPackageName) {
-        if (StringUtil.isEmpty(rootPackageName)) {
+        if (SaiStringUtils.isEmpty(rootPackageName)) {
             return;
         }
         List<ScannerSourceInfo> scannerSourceInfoList = ClassScanUtil.scanner(rootPackageName, true);

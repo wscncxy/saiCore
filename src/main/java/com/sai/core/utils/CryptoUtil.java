@@ -10,7 +10,7 @@ public class CryptoUtil {
 
     public static String encrypt(String content) {
         try {
-            if (StringUtil.isNotBlank(content)) {
+            if (SaiStringUtils.isNotBlank(content)) {
                 KeyGenerator AESGenerator = AESGenerator = KeyGenerator.getInstance("AES");
                 SecureRandom SHA1PRNGRandom = SecureRandom.getInstance("SHA1PRNG");
                 Cipher AESCipher = AESCipher = Cipher.getInstance("AES");
@@ -32,7 +32,7 @@ public class CryptoUtil {
 
     public static String decrypt(String ciphertext) {
         try {
-            if (StringUtil.isNotBlank(ciphertext)) {
+            if (SaiStringUtils.isNotBlank(ciphertext)) {
                 KeyGenerator kgen = KeyGenerator.getInstance("AES");
                 SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");// 修复linux系统报错问题
                 secureRandom.setSeed(ciphertext.getBytes());

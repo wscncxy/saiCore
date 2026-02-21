@@ -1,4 +1,4 @@
-package com.sai.core.utils.es;
+package com.sai.core.utils.es.v8;
 
 import org.elasticsearch.script.Script;
 import org.elasticsearch.search.sort.FieldSortBuilder;

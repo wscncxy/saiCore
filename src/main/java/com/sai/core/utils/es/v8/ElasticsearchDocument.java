@@ -1,6 +1,7 @@
-package com.sai.core.utils.es;
+package com.sai.core.utils.es.v8;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sai.core.utils.es.ElasticsearchTypeBaseEnum;
 
 import java.util.ArrayList;
 import java.util.List;

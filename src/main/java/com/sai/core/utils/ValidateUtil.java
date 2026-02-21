@@ -12,7 +12,6 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ValidateUtil {
     private static final Logger log = LoggerFactory.getLogger(ValidateUtil.class);
@@ -30,18 +29,18 @@ public class ValidateUtil {
                 }
                 field.setAccessible(true);
                 Object fieldVal = field.get(data);
-                String fieldName = StringUtil.isEmpty(dataValid.name()) ? field.getName() : dataValid.name();
+                String fieldName = SaiStringUtils.isEmpty(dataValid.name()) ? field.getName() : dataValid.name();
 
                 if (dataValid.notBlank()) {
                     validNotBlank(fieldVal, fieldName);
                 }
 
                 String maxVal = dataValid.maxVal();
-                if (StringUtil.isNotEmpty(maxVal)) {
+                if (SaiStringUtils.isNotEmpty(maxVal)) {
                     validNum(fieldVal, maxVal, fieldName, true);
                 }
                 String minVal = dataValid.minVal();
-                if (StringUtil.isNotEmpty(minVal)) {
+                if (SaiStringUtils.isNotEmpty(minVal)) {
                     validNum(fieldVal, minVal, fieldName, false);
                 }
 
@@ -75,7 +74,7 @@ public class ValidateUtil {
             throw new SaiException(ResultCodeEnum.RESULT_DATA_IS_BLANK, fieldName);
         }
 
-        if (data instanceof String && StringUtil.isBlank((String) data)) {
+        if (data instanceof String && SaiStringUtils.isBlank((String) data)) {
             throw new SaiException(ResultCodeEnum.RESULT_DATA_IS_BLANK, fieldName);
         }
 

@@ -1,4 +1,4 @@
-package com.sai.core.utils;
+package com.sai.core.utils.cache;
 
 public abstract class CacheUtil {
 

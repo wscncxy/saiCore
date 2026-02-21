@@ -1,4 +1,4 @@
-package com.sai.core.utils.es;
+package com.sai.core.utils.es.v8;
 
 public class ElasticsearchBucket {
     private int doc_count;

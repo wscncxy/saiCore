@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sai.core.utils.es.SearchUtils;
+import com.sai.core.utils.es.v8.SearchUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

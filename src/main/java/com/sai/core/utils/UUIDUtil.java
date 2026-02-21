@@ -9,7 +9,7 @@ public class UUIDUtil {
 		return uuid.replaceAll("-","");
 	}
 	
-	public static void main(StringUtil[] args) {
+	public static void main(SaiStringUtils[] args) {
 		System.out.println(uuid());
 	}
 

@@ -1,6 +1,7 @@
-package com.sai.core.utils.es;
+package com.sai.core.utils.es.v8;
 
 import com.sai.core.utils.JSONUtil;
+import com.sai.core.utils.es.ElasticsearchTypeBaseEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
